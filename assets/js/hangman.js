@@ -1,6 +1,9 @@
-// We need a list of words to choose from in an array randomly
+// We need a list of words to choose from in an array
 
 var words = ["earth", "mars", "neptune", "venus", "mercury", "saturn", "pluto", "jupiter", "uranus", ];
+
+//global vars
+
 var chosenWord = "";
 var charInWord = [];
 var underScores = 0;
@@ -25,11 +28,7 @@ function game() {
 
     tries = 9;
     wrongChar = [];
-    underSoreAndCorrect = [];
-
-    // Compare user input to character from random word
-    // If userInput !== a correct character display incorrect character chosen
-    // If userInput === a correct character replace "_" with correct character    
+    underSoreAndCorrect = [];  
 
     for (var i=0; i < underScores; i++) {
         underSoreAndCorrect.push("_");
@@ -39,12 +38,6 @@ function game() {
     document.getElementById("tries").innerHTML = tries;
     document.getElementById("wins").innerHTML = wins;
     document.getElementById("losses").innerHTML = losses;
-
-    //test
-    console.log(chosenWord);
-    console.log(charInWord);
-    console.log(underScores);
-    console.log(underSoreAndCorrect);
 
 }
 
@@ -70,27 +63,26 @@ function check(letters) {
             wrongChar.push(letters);
             tries--
         }
-
-        //test
-        console.log(underSoreAndCorrect);
 }
 
-function gameOver() {
-    console.log("win cound: " + wins + " | Loss Count: " + losses + " | Tries Left: " + tries);
+// finishes and starts new game
 
+function gameOver() {
+
+    // restarts these counters each time new game starts
 
         document.getElementById("tries").innerHTML = tries;
         document.getElementById("underScore").innerHTML = underSoreAndCorrect.join(" ");
         document.getElementById("wrongGuess").innerHTML = wrongChar.join(" ");
 
-        // Allert of win once all "_ _ _ _" are replaced
+        // Alert of win once all "_ _ _ _" are replaced with char
 
         if (charInWord.toString() == underSoreAndCorrect.toString()) {
             wins++;
             alert("you Won!");
             document.getElementById("wins").innerHTML = wins;
 
-            game();
+            game(); // restarts game
         }
 
         // Alert of loss once all tries are used
@@ -100,23 +92,18 @@ function gameOver() {
             alert("You Loose, Try Again!");
             document.getElementById("losses").innerHTML = losses;
         
-            game();
+            game(); // restarts game
         }
 
-        if (gameOver()) {
-            
-        }
 }
 // Call on func's
 
 game();
-gameOver();
+
 // Create user input
 
 document.onkeyup = function(event) {
     var userInput = event.key.toLowerCase();
     check(userInput);
-
-    //test
-    console.log(userInput);
+    gameOver();
 }
